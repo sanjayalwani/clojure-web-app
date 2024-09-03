@@ -13,20 +13,9 @@
 (defn clean [_]
   (b/delete {:path "target"}))
 
-(defn jar [_]
-  (b/write-pom {:class-dir class-dir
-                :lib lib
-                :version version
-                :basis @basis
-                :src-dirs ["src"]})
-  (b/copy-dir {:src-dirs ["src"]
-               :target-dir class-dir})
-  (b/jar {:class-dir class-dir
-          :jar-file jar-file}))
-
 (defn uberjar [_]
   (clean nil)
-  (b/copy-dir {:src-dirs ["src"]
+  (b/copy-dir {:src-dirs ["src" "resources"]
                :target-dir class-dir})
   (b/compile-clj {:basis @basis
                   :ns-compile '[web-app.core]
