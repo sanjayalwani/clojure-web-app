@@ -5,6 +5,8 @@
   ;; web
   (:require [ring.adapter.jetty :as adapter])
   (:require [ring.middleware.reload :as reload])
+  ;; log
+  (:require [taoensso.timbre :as timbre])
   ;; self
   (:require [web-app.routes :as routes])
   (:gen-class))
@@ -35,10 +37,10 @@
   (let [args (parse-args args)
         dev-mode? (:dev-mode args)]
 
-    (println "Starting server on port" (:port args))
+    (timbre/info "Starting server on port" (:port args))
     (if dev-mode?
-      (println "Development mode enabled")
-      (println "Production mode enabled"))
+      (timbre/info "Development mode enabled")
+      (timbre/info "Production mode enabled"))
 
     (launch-server {:port (:port args)
                     :dev-mode? dev-mode?

@@ -1,4 +1,5 @@
 (ns web-app.routes
+  (:require [taoensso.timbre :as timbre])
   (:require [ring.util.response :refer [resource-response]])
   (:require [ring.middleware.resource :refer [wrap-resource]])
   (:require [ring.middleware.params :refer [wrap-params]])
@@ -13,13 +14,13 @@
 (defroutes ring-app
   (GET "/hello" req (hello req))
   (GET "/reflect" req (reflect req))
-  (GET "/" request
-       {:status 200
-        :body (slurp "resources/public/index.html")})
+  (GET "/" _ (timbre/spy (resource-response "public/index.html")))
+
   (route/not-found "Not Found"))
 
 (def app (-> ring-app
              wrap-params
+             (wrap-resource "resources")
              handler/site))
 
 (defn not-found [{:keys [uri]}]
