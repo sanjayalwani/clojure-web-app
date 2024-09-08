@@ -2,16 +2,17 @@
   (:require [taoensso.timbre :as timbre])
   (:require [ring.util.response :refer [resource-response]])
   (:require [ring.middleware.defaults :refer [wrap-defaults site-defaults]])
-  (:require [compojure.core :refer [defroutes GET]]
+  (:require [compojure.core :refer [defroutes GET POST]]
             [compojure.route :as route])
 
   (:require [web-app.pages :as pages]))
 
 (defroutes ring-app
   (GET "/hello" req (pages/hello req))
-  (GET "/reflect" req (pages/reflect req))
+  (GET "/reflect" req (pages/reflect req)) 
+  (GET "/todos" req (pages/todos req))
   (GET "/" _ (timbre/spy (resource-response "public/index.html")))
-  
+
   ;; Serve all static resources from the public directory
   (route/resources "/" {:root "public"})
 
