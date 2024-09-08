@@ -8,7 +8,7 @@
   ;; log
   (:require [taoensso.timbre :as timbre])
   ;; self
-  (:require [web-app.routes :as routes])
+  (:require [web-app.router :as router])
   (:gen-class))
 
 (def default-port 3000)
@@ -26,8 +26,8 @@
 
       ;; Compojure route handler
       (if dev-mode?
-        (reload/wrap-reload #'routes/app)
-        routes/app)
+        (reload/wrap-reload #'router/app-router)
+        router/app-router)
 
       ;; Options
       options)))
