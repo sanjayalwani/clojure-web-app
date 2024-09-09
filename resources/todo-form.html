@@ -1,0 +1,31 @@
+<form id="todoForm">
+    <input type="text" id="todoInput" placeholder="Enter your todo">
+    <button type="submit">Add Todo</button>
+</form>
+
+<script>
+    document.getElementById("todoForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        
+        const todoInput = document.getElementById("todoInput").value;
+        const todoData = { todo: todoInput };
+        
+        fetch("/api/v1/todo/add", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-Token": "{{csrf-token}}"
+            },
+            body: JSON.stringify(todoData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Todo added successfully:", data);
+            // Do something with the response data
+        })
+        .catch(error => {
+            console.error("Error adding todo:", error);
+            // Handle the error
+        });
+    });
+</script>

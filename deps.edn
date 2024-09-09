@@ -10,6 +10,8 @@
   ring/ring-defaults {:mvn/version "0.5.0"}
   ring/ring-jetty-adapter {:mvn/version "1.12.1"}
   ring-server/ring-server {:mvn/version "0.5.0"}
+  ring/ring-json {:mvn/version "0.5.0"}
+  selmer/selmer {:mvn/version "1.12.18"}
   ;; Database
   org.xerial/sqlite-jdbc {:mvn/version "3.20.0"}
   org.clojure/java.jdbc {:mvn/version "0.7.0"}
